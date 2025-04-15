@@ -2,11 +2,26 @@
 import { useState, useRef } from "react"
 import { CloudIcon } from "./Icons"
 
-export const AnswersSection = () => {
+interface AnswersSectionProps {
+  options: string[];
+  onOptionClick: (index: number) => void;
+  isLoading?: boolean;
+}
+
+export const AnswersSection: React.FC<AnswersSectionProps> = ({ 
+  options = [],
+  onOptionClick,
+  isLoading = false
+}) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [hoveredAnswer, setHoveredAnswer] = useState<string | null>(null)
   const [isCloudHovered, setIsCloudHovered] = useState(false)
   const [isCloudClicked, setIsCloudClicked] = useState(false)
+  
+  // Limit to 4 options maximum
+  const displayOptions = options.slice(0, 4);
+  // If less than 4 options, fill with empty options
+  const allOptions = ['A', 'B', 'C', 'D'].slice(0, Math.max(4, displayOptions.length));
 
   // Animation refs
   const animationRefs = {
@@ -17,7 +32,7 @@ export const AnswersSection = () => {
   }
 
   // Handle option click with animation
-  const handleOptionClick = (letter: string) => {
+  const handleOptionClick = (letter: string, index: number) => {
     // If already selected, deselect
     if (selectedAnswer === letter) {
       setSelectedAnswer(null)
@@ -34,6 +49,9 @@ export const AnswersSection = () => {
         element?.classList.remove("click-animate")
       }, 400)
     }
+    
+    // Call the onOptionClick handler with the index
+    onOptionClick(index);
   }
 
   const handleCloudClick = () => {
@@ -61,36 +79,46 @@ export const AnswersSection = () => {
 
   return (
     <div className="flex-1 p-4 border-4 border-[#ebdbb2] max-md:w-full" style={{ backgroundColor: "#32302f" }}>
-      <div className="mb-4 w-full border border-[#ebdbb2] h-[430px]" style={{ backgroundColor: "#282828" }} />
-      <div className="flex flex-col gap-5">
-        {["A", "B", "C", "D"].map((letter) => (
-          <button
-            key={letter}
-            ref={animationRefs[letter as keyof typeof animationRefs]}
-            onClick={() => handleOptionClick(letter)}
-            onMouseEnter={() => setHoveredAnswer(letter)}
-            onMouseLeave={() => setHoveredAnswer(null)}
-            className={`relative pl-16 w-full text-left rounded-lg border transition-all duration-200 ease-in-out
-              ${
-                selectedAnswer === letter
-                  ? "border-[#d79921] shadow-inner transform scale-[0.98]"
-                  : "border-[#ebdbb2] shadow-lg hover:shadow-xl hover:transform hover:scale-[1.01]"
-              }
-              h-[81px] focus:outline-none focus:ring-2 focus:ring-[#d79921] focus:ring-opacity-50`}
-            style={{
-              backgroundColor: selectedAnswer === letter ? "#32302f" : hoveredAnswer === letter ? "#3c3836" : "#282828",
-              color: "#ebdbb2",
-            }}
-          >
-            <span
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 pixel-font text-4xl"
-              style={{ color: getLetterColor(letter) }}
-            >
-              {letter}
-            </span>
-            <span className="text-xl">Option {letter}</span>
-          </button>
-        ))}
+      <div className="mb-4 w-full border border-[#ebdbb2] h-[430px] overflow-y-auto" style={{ backgroundColor: "#282828" }}>
+        {isLoading ? (
+          <div className="flex items-center justify-center h-full">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#d79921]"></div>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-5 p-4">
+            {allOptions.map((letter, index) => (
+              <button
+                key={letter}
+                disabled={index >= displayOptions.length}
+                ref={animationRefs[letter as keyof typeof animationRefs]}
+                onClick={() => handleOptionClick(letter, index)}
+                onMouseEnter={() => setHoveredAnswer(letter)}
+                onMouseLeave={() => setHoveredAnswer(null)}
+                className={`relative pl-16 w-full text-left rounded-lg border transition-all duration-200 ease-in-out
+                  ${
+                    selectedAnswer === letter
+                      ? "border-[#d79921] shadow-inner transform scale-[0.98]"
+                      : "border-[#ebdbb2] shadow-lg hover:shadow-xl hover:transform hover:scale-[1.01]"
+                  }
+                  h-[81px] focus:outline-none focus:ring-2 focus:ring-[#d79921] focus:ring-opacity-50 ${
+                    index >= displayOptions.length ? "opacity-30 cursor-not-allowed" : ""
+                  }`}
+                style={{
+                  backgroundColor: selectedAnswer === letter ? "#32302f" : hoveredAnswer === letter ? "#3c3836" : "#282828",
+                  color: "#ebdbb2",
+                }}
+              >
+                <span
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 pixel-font text-4xl"
+                  style={{ color: getLetterColor(letter) }}
+                >
+                  {letter}
+                </span>
+                <span className="text-xl">{index < displayOptions.length ? displayOptions[index] : "Option unavailable"}</span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
       <div className="flex justify-center items-center mt-3">
         <div

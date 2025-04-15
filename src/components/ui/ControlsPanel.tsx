@@ -3,13 +3,22 @@ import { DifficultySelector } from "./DifficultySelector"
 import { ArrowUpIcon, ArrowDownIcon } from "./Icons"
 import { useState } from "react"
 
-export const ControlsPanel = () => {
+interface ControlsPanelProps {
+  onReload?: () => void;
+}
+
+export const ControlsPanel: React.FC<ControlsPanelProps> = ({ onReload }) => {
   const [isReloadHovered, setIsReloadHovered] = useState(false)
   const [isReloadClicked, setIsReloadClicked] = useState(false)
 
   const handleReloadClick = () => {
     setIsReloadClicked(true)
     setTimeout(() => setIsReloadClicked(false), 400)
+    
+    // Call the onReload handler if provided
+    if (onReload) {
+      onReload();
+    }
   }
 
   return (

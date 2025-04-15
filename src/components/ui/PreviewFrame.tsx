@@ -1,16 +1,15 @@
 "use client"
 import { useState, useEffect } from "react"
 
-export const PreviewFrame = () => {
-  const [isLoading, setIsLoading] = useState(true)
+interface PreviewFrameProps {
+  isLoading?: boolean;
+  sceneText?: string;
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
-    return () => clearTimeout(timer)
-  }, [])
-
+export const PreviewFrame: React.FC<PreviewFrameProps> = ({ 
+  isLoading = true,
+  sceneText = ''
+}) => {
   return (
     <div className="relative h-[450px] w-[450px] max-md:w-full">
       <div className="absolute rounded-md border-4 border-[#ebdbb2] size-full" />
@@ -29,9 +28,13 @@ export const PreviewFrame = () => {
           </div>
         ) : (
           <div
-            className="m-6 border border-[#ebdbb2] h-[386px] w-[calc(100%-48px)] transition-opacity duration-300 ease-in"
+            className="m-6 border border-[#ebdbb2] h-[386px] w-[calc(100%-48px)] transition-opacity duration-300 ease-in overflow-auto"
             style={{ backgroundColor: "#32302f" }}
-          />
+          >
+            <div className="p-4 text-[#ebdbb2] whitespace-pre-wrap">
+              {sceneText}
+            </div>
+          </div>
         )}
       </div>
     </div>
