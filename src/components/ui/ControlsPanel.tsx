@@ -24,7 +24,7 @@ export const ControlsPanel: React.FC<ControlsPanelProps> = ({ onReload }) => {
   return (
     <div
       className="absolute w-full rounded-md border-4 border-[#ebdbb2] h-[184px]"
-      style={{ backgroundColor: "#282828" }}
+      style={{ backgroundColor: "#282828" /*#282828*/}}
     >
       <div className="flex justify-center items-center mt-4">
         <DifficultySelector />

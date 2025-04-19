@@ -6,12 +6,14 @@ interface AnswersSectionProps {
   options: string[];
   onOptionClick: (index: number) => void;
   isLoading?: boolean;
+  storyText: string;
 }
 
 export const AnswersSection: React.FC<AnswersSectionProps> = ({ 
   options = [],
   onOptionClick,
-  isLoading = false
+  isLoading = false,
+  storyText
 }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
   const [hoveredAnswer, setHoveredAnswer] = useState<string | null>(null)
@@ -78,14 +80,23 @@ export const AnswersSection: React.FC<AnswersSectionProps> = ({
   }
 
   return (
-    <div className="flex-1 p-4 border-4 border-[#ebdbb2] max-md:w-full" style={{ backgroundColor: "#32302f" }}>
-      <div className="mb-4 w-full border border-[#ebdbb2] h-[430px] overflow-y-auto" style={{ backgroundColor: "#282828" }}>
+                                                                           
+    <div className="flex-1 p-4 border-4 border-[#ebdbb2] max-md:w-full" style={{ backgroundColor: "#32302f" /*#32302f*/}}>
+      <div className="mb-4 w-full border border-[#ebdbb2] h-[500px] overflow-y-auto" style={{ backgroundColor: "#282828" /*#282828*/}}>
+        <div className="p-4 text-[#ebdbb2] pixel-font">
+          {storyText}
+        </div>
+      </div>
+      <div className="mb-4 w-full border border-[#ebdbb2] h-[450px] overflow-y-auto" style={{ backgroundColor: "#282828" /*#282828*/}}>
+        <div className="p-4 text-[#ebdbb2] pixel-font text-sm">
+          {storyText}
+        </div>
         {isLoading ? (
           <div className="flex items-center justify-center h-full">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#d79921]"></div>
           </div>
         ) : (
-          <div className="flex flex-col gap-5 p-4">
+          <div className="flex flex-col gap-4 p-4">
             {allOptions.map((letter, index) => (
               <button
                 key={letter}
@@ -100,7 +111,7 @@ export const AnswersSection: React.FC<AnswersSectionProps> = ({
                       ? "border-[#d79921] shadow-inner transform scale-[0.98]"
                       : "border-[#ebdbb2] shadow-lg hover:shadow-xl hover:transform hover:scale-[1.01]"
                   }
-                  h-[81px] focus:outline-none focus:ring-2 focus:ring-[#d79921] focus:ring-opacity-50 ${
+                  h-[80px] focus:outline-none focus:ring-2 focus:ring-[#d79921] focus:ring-opacity-50 ${
                     index >= displayOptions.length ? "opacity-30 cursor-not-allowed" : ""
                   }`}
                 style={{
@@ -114,7 +125,7 @@ export const AnswersSection: React.FC<AnswersSectionProps> = ({
                 >
                   {letter}
                 </span>
-                <span className="text-xl">{index < displayOptions.length ? displayOptions[index] : "Option unavailable"}</span>
+                <span className="text-xs pixel-font">{index < displayOptions.length ? displayOptions[index] : "Option unavailable"}</span>
               </button>
             ))}
           </div>
