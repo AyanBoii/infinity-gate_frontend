@@ -82,8 +82,14 @@ export const AnswersSection: React.FC<AnswersSectionProps> = ({
   return (
                                                                            
     <div className="flex-1 p-4 border-4 border-[#ebdbb2] max-md:w-full" style={{ backgroundColor: "#32302f" /*#32302f*/}}>
-      <div className="mb-4 w-full border border-[#ebdbb2] h-[500px] overflow-y-auto" style={{ backgroundColor: "#282828" /*#282828*/}}>
-        <div className="p-4 text-[#ebdbb2] pixel-font">
+      <div className="mb-4 w-full border border-[#ebdbb2] h-[500px] overflow-y-auto relative" style={{ backgroundColor: "#282828" /*#282828*/}}>
+        <img 
+          src="pixel-art-xl-001.png" 
+          alt="Pixel Art" 
+          className="w-full h-full object-contain"
+          style={{ display: 'block' }}
+        />
+        <div className="p-4 text-[#ebdbb2] pixel-font absolute top-0 left-0 w-full h-full pointer-events-none">
           {storyText}
         </div>
       </div>
