@@ -31,135 +31,95 @@ const CharacterForm: React.FC<CharacterFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <div className="w-full max-w-2xl p-6 bg-gray-800 rounded-lg shadow-lg text-white mx-auto">
-      <h2 className="text-3xl font-bold mb-6 text-center">Create Your Character</h2>
-
+    <div className="text-[9px] font-['Press_Start_2P'] max-w-4xl mx-auto bg-[#282828] p-12 rounded-lg shadow-lg animate-float">
+      <h2 className="text-[18px] text-[#fabd2f] mb-6 text-center">Create Your Character</h2>
+      
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Character details */}
-        <div className="mb-6">
-          <h3 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">
-            Character Details
-          </h3>
-
-          <div className="mb-4">
-            <label htmlFor="character_name" className="block mb-1">
-              Name
-            </label>
+        <div className="space-y-4">
+          <h3 className="text-[14px] text-[#b8bb26]">Character Details</h3>
+          
+          <div>
+            <label htmlFor="name" className="block text-[#83a598] mb-1">Name</label>
             <input
               type="text"
-              id="character_name"
-              name="character_name"
+              id="name"
               value={formData.character_name}
               onChange={handleChange}
+              className="w-full px-4 py-2 bg-[#3c3836] border-2 border-[#504945] rounded text-[#ebdbb2] focus:border-[#83a598] focus:ring-2 focus:ring-[#83a598] transition-all duration-300"
               required
-              className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="background" className="block mb-1">
-              Background
-            </label>
-            <textarea
-              id="background"
-              name="background"
-              value={formData.background}
-              onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows={2}
-            />
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="traits" className="block mb-1">
-              Traits
-            </label>
+          <div>
+            <label htmlFor="race" className="block text-[#83a598] mb-1">Race</label>
             <input
               type="text"
-              id="traits"
-              name="traits"
+              id="race"
               value={formData.traits}
               onChange={handleChange}
-              placeholder="Brave, curious, stubborn, etc."
-              className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 bg-[#3c3836] border-2 border-[#504945] rounded text-[#ebdbb2] focus:border-[#83a598] focus:ring-2 focus:ring-[#83a598] transition-all duration-300"
+              required
             />
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="description" className="block mb-1">
-              Description
-            </label>
-            <textarea
-              id="description"
-              name="description"
+          <div>
+            <label htmlFor="class" className="block text-[#83a598] mb-1">Class</label>
+            <input
+              type="text"
+              id="class"
               value={formData.description}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows={2}
+              className="w-full px-4 py-2 bg-[#3c3836] border-2 border-[#504945] rounded text-[#ebdbb2] focus:border-[#83a598] focus:ring-2 focus:ring-[#83a598] transition-all duration-300"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="background" className="block text-[#83a598] mb-1">Background</label>
+            <textarea
+              id="background"
+              value={formData.background}
+              onChange={handleChange}
+              rows={3}
+              className="w-full px-4 py-2 bg-[#3c3836] border-2 border-[#504945] rounded text-[#ebdbb2] focus:border-[#83a598] focus:ring-2 focus:ring-[#83a598] transition-all duration-300"
+              required
             />
           </div>
         </div>
 
-        {/* World settings */}
-        <div className="mb-6">
-          <h3 className="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">
-            World Settings
-          </h3>
-
-          <div className="mb-4">
-            <label htmlFor="genre" className="block mb-1">
-              Genre
-            </label>
-            <select
-              id="genre"
-              name="genre"
+        <div className="space-y-4">
+          <h3 className="text-[14px] text-[#b8bb26]">World Settings</h3>
+          
+          <div>
+            <label htmlFor="worldName" className="block text-[#83a598] mb-1">World Name</label>
+            <input
+              type="text"
+              id="worldName"
               value={formData.genre}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="Fantasy">Fantasy</option>
-              <option value="Sci-Fi">Sci-Fi</option>
-              <option value="Post-Apocalyptic">Post-Apocalyptic</option>
-              <option value="Cyberpunk">Cyberpunk</option>
-              <option value="Historical">Historical</option>
-              <option value="Steampunk">Steampunk</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="world_description" className="block mb-1">
-              World Description
-            </label>
-            <textarea
-              id="world_description"
-              name="world_description"
-              value={formData.world_description}
-              onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows={2}
+              className="w-full px-4 py-2 bg-[#3c3836] border-2 border-[#504945] rounded text-[#ebdbb2] focus:border-[#83a598] focus:ring-2 focus:ring-[#83a598] transition-all duration-300"
+              required
             />
           </div>
 
-          <div className="mb-4">
-            <label htmlFor="main_conflict" className="block mb-1">
-              Main Conflict
-            </label>
+          <div>
+            <label htmlFor="worldDescription" className="block text-[#83a598] mb-1">World Description</label>
             <textarea
-              id="main_conflict"
-              name="main_conflict"
-              value={formData.main_conflict}
+              id="worldDescription"
+              value={formData.world_description}
               onChange={handleChange}
-              className="w-full px-3 py-2 bg-gray-700 rounded border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows={2}
+              rows={3}
+              className="w-full px-4 py-2 bg-[#3c3836] border-2 border-[#504945] rounded text-[#ebdbb2] focus:border-[#83a598] focus:ring-2 focus:ring-[#83a598] transition-all duration-300"
+              required
             />
           </div>
         </div>
 
         <button
           type="submit"
-          className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 rounded-md font-medium transition-colors"
+          className="w-full py-4 px-6 bg-[#83a598] text-[#282828] font-bold rounded-lg hover:bg-[#b8bb26] active:bg-[#fabd2f] transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#83a598]/50"
         >
-          Begin Adventure
+          Begin Your Adventure
         </button>
       </form>
     </div>
